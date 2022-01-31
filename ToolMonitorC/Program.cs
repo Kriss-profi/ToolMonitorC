@@ -4,7 +4,7 @@ using ToolMonitorC.Entities.Extensions;
 using ToolMonitorC.Data;
 using ToolMonitorC.Repositories.Extensions;
 
-var itemAdded = new ItemAdded(EmployeeAdded);
+var itemAdded = new ItemAdded<Employee>(EmployeeAdded);
 
 var employeeRepository = new SqlRepository<Employee>(new ToolMonitorDbContext(), itemAdded);
 AddEmployees(employeeRepository);
@@ -12,10 +12,10 @@ GetElementById(employeeRepository);
 WriteAllToConsole(employeeRepository);
 
 
-static void EmployeeAdded(object item)
+static void EmployeeAdded(Employee item)
 {
-    var employee = item as Employee;
-    Console.WriteLine($"{employee.FirstName} added.");
+    //var employee = item as Employee;
+    Console.WriteLine($"{item.FirstName} added.");
 }
 
 static void WriteAllToConsole(IReadRepository<IEntity> repository)
