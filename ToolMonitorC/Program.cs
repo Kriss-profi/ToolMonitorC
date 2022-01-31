@@ -32,7 +32,7 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
         new Employee { FirstName = "Renata"}
     };
 
-    AddBatch(employeeRepository, employees)
+    AddBatch(employeeRepository, employees);
 
     //employeeRepository.Add(new Employee { FirstName = "Krzysiek" });
     //employeeRepository.Add(new Employee { FirstName = "Kuba" });
@@ -41,11 +41,11 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
     //employeeRepository.Save();
 }
 
-static void AddBatch(IRepository<Employee> employeeRepository, Employee[] employees)
+static void AddBatch<T>(IRepository<T> repository, T[] items) where T : class, IEntity
 {
-    foreach (var employee in employees)
+    foreach (var item in items)
     {
-        employeeRepository.Add(employee);
+        repository.Add(item);
     }
-    employeeRepository.Save();
+    repository.Save();
 }
