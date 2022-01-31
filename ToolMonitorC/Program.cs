@@ -1,5 +1,6 @@
 ﻿using ToolMonitorC.Repositories;
 using ToolMonitorC.Entities;
+using ToolMonitorC.Entities.Extensions;
 using ToolMonitorC.Data;
 using ToolMonitorC.Repositories.Extensions;
 
@@ -7,6 +8,7 @@ var employeeRepository = new SqlRepository<Employee>(new ToolMonitorDbContext())
 AddEmployees(employeeRepository);
 GetElementById(employeeRepository);
 WriteAllToConsole(employeeRepository);
+
 
 static void WriteAllToConsole(IReadRepository<IEntity> repository)
 {
@@ -33,6 +35,7 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
         new Employee { FirstName = "Renata"}
     };
     employeeRepository.AddBatch(employees);
+    
     //AddBatch(employeeRepository, employees);
 
     //employeeRepository.Add(new Employee { FirstName = "Krzysiek" });

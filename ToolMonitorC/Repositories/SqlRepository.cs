@@ -20,7 +20,7 @@ namespace ToolMonitorC.Repositories
             return _dbSet.OrderBy(item => item.Id).ToList();
         }
 
-        public T GetById(int id)
+        public T? GetById(int id)
         {
             return _dbSet.Find(id);         //(x => x.Id == id);
         }
