@@ -1,6 +1,7 @@
 ﻿using ToolMonitorC.Repositories;
 using ToolMonitorC.Entities;
 using ToolMonitorC.Data;
+using ToolMonitorC.Repositories.Extensions;
 
 var employeeRepository = new SqlRepository<Employee>(new ToolMonitorDbContext());
 AddEmployees(employeeRepository);
@@ -31,8 +32,8 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
         new Employee { FirstName = "Kacper"},
         new Employee { FirstName = "Renata"}
     };
-
-    AddBatch(employeeRepository, employees);
+    employeeRepository.AddBatch(employees);
+    //AddBatch(employeeRepository, employees);
 
     //employeeRepository.Add(new Employee { FirstName = "Krzysiek" });
     //employeeRepository.Add(new Employee { FirstName = "Kuba" });
@@ -41,11 +42,11 @@ static void AddEmployees(IRepository<Employee> employeeRepository)
     //employeeRepository.Save();
 }
 
-static void AddBatch<T>(IRepository<T> repository, T[] items) where T : class, IEntity
-{
-    foreach (var item in items)
-    {
-        repository.Add(item);
-    }
-    repository.Save();
-}
+//static void AddBatch<T>(IRepository<T> repository, T[] items) where T : class, IEntity
+//{
+//    foreach (var item in items)
+//    {
+//        repository.Add(item);
+//    }
+//    repository.Save();
+//}
