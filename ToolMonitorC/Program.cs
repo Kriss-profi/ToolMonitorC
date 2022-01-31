@@ -4,9 +4,9 @@ using ToolMonitorC.Entities.Extensions;
 using ToolMonitorC.Data;
 using ToolMonitorC.Repositories.Extensions;
 
-var itemAdded = new ItemAdded<Employee>(EmployeeAdded);
+//var itemAdded = new ItemAdded<Employee>(EmployeeAdded);
 
-var employeeRepository = new SqlRepository<Employee>(new ToolMonitorDbContext(), itemAdded);
+var employeeRepository = new SqlRepository<Employee>(new ToolMonitorDbContext(), EmployeeAdded);
 AddEmployees(employeeRepository);
 GetElementById(employeeRepository);
 WriteAllToConsole(employeeRepository);
