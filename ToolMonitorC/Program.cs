@@ -7,6 +7,13 @@ using ToolMonitorC.Repositories.Extensions;
 //var itemAdded = new ItemAdded<Employee>(EmployeeAdded);
 
 var employeeRepository = new SqlRepository<Employee>(new ToolMonitorDbContext(), EmployeeAdded);
+employeeRepository.ItemAdded += EmployeeRepositoryOnItemAdded;
+
+void EmployeeRepositoryOnItemAdded(object? sender, Employee e)
+{
+    Console.WriteLine($"Employee added => {e.FirstName} from {sender?.GetType().Name}");
+}
+
 AddEmployees(employeeRepository);
 GetElementById(employeeRepository);
 WriteAllToConsole(employeeRepository);

@@ -17,6 +17,8 @@ namespace ToolMonitorC.Repositories
             _itemAddedCallBack = itemAddedCallBack;
         }
 
+        public event EventHandler<T> ItemAdded;
+
         public IEnumerable<T> GetAll()
         {
             return _dbSet.OrderBy(item => item.Id).ToList();
@@ -31,6 +33,7 @@ namespace ToolMonitorC.Repositories
         {
             _dbSet.Add(item);
             _itemAddedCallBack?.Invoke(item);
+            ItemAdded?.Invoke(this, item);
         }
 
         public void Remove(T item)
