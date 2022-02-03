@@ -18,15 +18,21 @@ namespace ToolMonitorC.Repositories
         }
 
         public event EventHandler<T> ItemAdded;
+        public event EventHandler<T> ItemGetById;
+        public event EventHandler<T> ItemGetByName;
+        public event EventHandler<T> ItemRemoved;
 
         public IEnumerable<T> GetAll()
         {
             return _dbSet.OrderBy(item => item.Id).ToList();
         }
 
-        public T? GetById(int id)
+
+        public T GetById(int id)
         {
-            return _dbSet.Find(id);         //(x => x.Id == id);
+            var idItem = _dbSet.Find(id);         //(x => x.Id == id);
+            ItemGetById?.Invoke(this, idItem);
+            return idItem;
         }
 
         public void Add(T item)
@@ -39,6 +45,7 @@ namespace ToolMonitorC.Repositories
         public void Remove(T item)
         {
             _dbSet.Remove(item);
+            ItemRemoved?.Invoke(this, item);
         }
 
         public void Save()
