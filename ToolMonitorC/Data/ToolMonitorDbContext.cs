@@ -3,16 +3,26 @@ using ToolMonitorC.Entities;
 
 namespace ToolMonitorC.Data
 {
-    internal class ToolMonitorDbContext : DbContext
+    public class ToolMonitorDbContext : DbContext
     {
+        //public ToolMonitorDbContext(DbContextOptions<ToolMonitorDbContext> optionsBuilder) : base(optionsBuilder)
+        //{
+
+        //}
         public DbSet<Employee> Employees => Set<Employee>();
-        public DbSet<User> Users => Set<User>();
-        public DbSet<Tool> Tools => Set<Tool>();
+        
+        //public DbSet<Employee> Employees { get; set; }
+        //public DbSet<User> Users => Set<User>();
+        //public DbSet<Tool> Tools => Set<Tool>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseInMemoryDatabase("StorageAppDb");
+            optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=ToolMonitorCStorage;Integrated Security=True");
+            //optionsBuilder.UseInMemoryDatabase("StorageAppDb");
+            //var optionBuilder = new DbContextOptionsBuilder<ToolMonitorDbContext>();
+            //optionBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=ToolMonitorCStorage;Integrated Security=True");
+            //return new ToolMonitorDbContext(optionBuilder.Options);
         }
     }
 }
