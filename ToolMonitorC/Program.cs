@@ -1,7 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ToolMonitorC;
+using ToolMonitorC.Data;
+using ToolMonitorC.Entities;
+using ToolMonitorC.Repositories;
 
 var services = new ServiceCollection();
+services.AddSingleton<IApp, App>();
+services.AddSingleton<ITemp, Temp>();
+services.AddSingleton<IRepository<Employee>, ListRepository<Employee>>();
+services.AddDbContext<ToolMonitorDbContext>(options => options.UseSqlServer("Data Source=KRISS\\SQLEXPRESS;Initial Catalog=ToolMonitorCStorage;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
 
+var serviceProvider = services.BuildServiceProvider();
+var app = serviceProvider.GetRequiredService<IApp>()!;
+var temp = serviceProvider.GetRequiredService<ITemp>();
+
+app.Run();
+//temp.RunTemp();
 
 //using ToolMonitorC.Repositories;
 //using ToolMonitorC.Entities;

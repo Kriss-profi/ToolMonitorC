@@ -1,6 +1,6 @@
 ﻿namespace ToolMonitorC.Entities
 {
-    internal class Tool : EntityBase
+    public class Tool : EntityBase
     {
         public string ToolName { get; set; }
         public string ToolDescription { get; set; }
