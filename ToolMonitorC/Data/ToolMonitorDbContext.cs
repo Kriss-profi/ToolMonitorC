@@ -12,6 +12,7 @@ namespace ToolMonitorC.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
 
 

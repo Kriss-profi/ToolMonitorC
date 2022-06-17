@@ -1,5 +1,4 @@
-﻿
-namespace ToolMonitorC
+﻿namespace ToolMonitorC
 {
     public interface IApp
     {
