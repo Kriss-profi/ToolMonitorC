@@ -38,8 +38,6 @@ namespace ToolMonitorC
                         {
                             menu.EndMenu();
                             var key = Console.ReadKey();
-                            //Console.WriteLine($"Nacisnołeś {key.Key}");
-                            //Console.ReadKey();
                             nr = (key.Key == ConsoleKey.T) ? -1 : 99;
                             break;
                         }
@@ -78,7 +76,7 @@ namespace ToolMonitorC
             do {
                 switch (subNr)
                 {
-                    case 0: nr = -1;  break;
+                    case 0: subNr = -1;  break;
                     case 1: FindAllEmployeesFromDb(); break; // schow all
                     case 2: FindEmployeeId(); break; // schow Id
                     case 3: FindEmployee(); break;
@@ -107,7 +105,6 @@ namespace ToolMonitorC
             nr = 10;
             Console.Write("Podaj ID pracownika: ");
             id = GetId();
-            //Employee emp = ReadEmployeeFromSqlById(id);
             employee = toolMonitorDbContext.Employees.FirstOrDefault(x => x.Id == id)!;
             menu.SubMenu2(nr);
             if(employee != null)
@@ -160,12 +157,8 @@ namespace ToolMonitorC
         {
             nr = 10;
             menu.SubHeading(nr);
-            //Console.WriteLine("Deleting po ID");
-            //Console.BackgroundColor = ConsoleColor.Red;
             string str = $"Do you want to delete it : \n{employee.ToString()}";
             WriteLineInRed(str);
-            //Console.WriteLine($"Do you want to delete it : \n{employee.ToString()}", Console.BackgroundColor);
-            //Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("  TAK [t] \t NIE [n]");
             var key = Console.ReadKey();
             if(key.Key == ConsoleKey.T)
@@ -229,7 +222,7 @@ namespace ToolMonitorC
 
         private void FindAllDepartmentsFromDb()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Jeszcze nie ma tabelki");
         }
 
         private void FindDepartmentId()
