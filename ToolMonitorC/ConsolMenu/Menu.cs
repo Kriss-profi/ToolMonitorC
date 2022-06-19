@@ -60,7 +60,7 @@
             Console.WriteLine();
         }
 
-        private static void SubHeading(int subTitel)
+        public void SubHeading(int subTitel)
         {
             Console.Clear();
             Console.WriteLine();

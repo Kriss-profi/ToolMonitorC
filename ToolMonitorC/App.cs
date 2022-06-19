@@ -40,26 +40,12 @@ namespace ToolMonitorC
                             var key = Console.ReadKey();
                             //Console.WriteLine($"Nacisnołeś {key.Key}");
                             //Console.ReadKey();
-                            if (key.Key == ConsoleKey.T)
-                            {
-                                nr = -1;
-                            }
-                            else
-                            {
-                                nr = 99;
-                            }
+                            nr = (key.Key == ConsoleKey.T) ? -1 : 99;
                             break;
                         }
                     case 10: StartEmployee(); break;
                     
-
-                    case 20: menu.SubMenu(nr); nr += GetNumber(); break;
-                    case 21: break; // schow all
-                    case 22: break; // schow Id
-                    case 23: Find(); break;
-                    case 24: break; // Add
-                    case 25: Edit(); break; // Edit
-                    case 26: Remove(); break; // Remove
+                    case 20: StartDepartments(); break;
 
                     case 30: menu.SubMenu(nr); nr += GetNumber(); break;
                     case 31: break; // schow all
@@ -122,10 +108,16 @@ namespace ToolMonitorC
             Console.Write("Podaj ID pracownika: ");
             id = GetId();
             //Employee emp = ReadEmployeeFromSqlById(id);
-            employee = ReadEmployeeFromSqlById(id);
+            employee = toolMonitorDbContext.Employees.FirstOrDefault(x => x.Id == id)!;
             menu.SubMenu2(nr);
-            //Console.WriteLine(emp.ToString());
-            Console.WriteLine(employee.ToString());
+            if(employee != null)
+            {
+                Console.WriteLine(employee.ToString());
+            }
+            else
+            {
+                Console.WriteLine("No such employee was found");
+            }
             subNr = GetSubNumber();
         }
         private void FindEmployee()
@@ -137,7 +129,7 @@ namespace ToolMonitorC
             subNr = GetSubNumber();
         }
 
-        private void Find()
+        private void FindEmployeeName()
         {
             //nr = 10;
             menu.SubMenu1(nr);
@@ -162,14 +154,18 @@ namespace ToolMonitorC
             menu.SubMenu1(nr);
             Console.WriteLine("Usówanko");
             RemoveEmployee(id);
-            subNr = GetSubNumber();
+            subNr = 0;
         }
         private void RemoveEmployee(int id)
         {
             nr = 10;
-            menu.SubMenu1(nr);
-            Console.WriteLine("Deleting po ID");
-            Console.WriteLine($"Czy chcesz usunąć : \n{employee.ToString()}");
+            menu.SubHeading(nr);
+            //Console.WriteLine("Deleting po ID");
+            //Console.BackgroundColor = ConsoleColor.Red;
+            string str = $"Do you want to delete it : \n{employee.ToString()}";
+            WriteLineInRed(str);
+            //Console.WriteLine($"Do you want to delete it : \n{employee.ToString()}", Console.BackgroundColor);
+            //Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("  TAK [t] \t NIE [n]");
             var key = Console.ReadKey();
             if(key.Key == ConsoleKey.T)
@@ -184,20 +180,11 @@ namespace ToolMonitorC
             toolMonitorDbContext.SaveChanges();
         }
 
-        private void Remove()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Edit()
-        {
-            throw new NotImplementedException();
-        }
 
         private void AddEmployee()
         {
             nr = 10;
-            menu.SubMenu1(nr);
+            menu.SubHeading(nr);
             Employee employee = new Employee();
             Console.Write("Podaj imię: ");
             employee.FirstName = Console.ReadLine();
@@ -206,15 +193,7 @@ namespace ToolMonitorC
             subNr = 0;
         }
 
-        
 
-
-
-
-        private Employee? ReadEmployeeFromSqlById(int id)
-        {
-            return toolMonitorDbContext.Employees.FirstOrDefault(x => x.Id == id);
-        }
 
         private void ReadAllToolsFromSql()
         {
@@ -224,6 +203,170 @@ namespace ToolMonitorC
                 Console.WriteLine(tool);
             }
         }
+        #endregion
+
+        #region DEPARTMENTS
+
+        private void StartDepartments()
+        {
+            menu.SubMenu(nr); subNr = GetNumber();
+            do
+            {
+                switch (subNr)
+                {
+                    case 0: nr = -1; break;
+                    case 1: FindAllDepartmentsFromDb(); break; // schow all
+                    case 2: FindDepartmentId(); break; // schow Id
+                    case 3: FindDepartment(); break;
+                    case 4: AddDepartment(); break; // Add
+                    case 5: EditDepartment(); break; // Edit
+                    case 6: RemoveDepartment(); break; // Remove
+                }
+            } while (subNr > 0);
+
+            nr = 99;
+        }
+
+        private void FindAllDepartmentsFromDb()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FindDepartmentId()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FindDepartment()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddDepartment()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EditDepartment()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemoveDepartment()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+
+        #region TOOLS
+
+        private void StartTools()
+        {
+            menu.SubMenu(nr); subNr = GetNumber();
+            do
+            {
+                switch (subNr)
+                {
+                    case 0: nr = -1; break;
+                    case 1: FindAllToolFromDb(); break; // schow all
+                    case 2: FindId(); break; // schow Id
+                    case 3: Find(); break;
+                    case 4: Add(); break; // Add
+                    case 5: Edit(); break; // Edit
+                    case 6: Remove(); break; // Remove
+                }
+            } while (subNr > 0);
+
+            nr = 99;
+        }
+
+        private void FindAllToolFromDb()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FindId()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Add()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Edit()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Remove()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+
+        #region TOOLS
+
+        private void StartCategories()
+        {
+            menu.SubMenu(nr); subNr = GetNumber();
+            do
+            {
+                switch (subNr)
+                {
+                    case 0: nr = -1; break;
+                    case 1: FindAllCategoriesFromDb(); break; // schow all
+                    case 2: FindId(); break; // schow Id
+                    case 3: Find(); break;
+                    case 4: Add(); break; // Add
+                    case 5: Edit(); break; // Edit
+                    case 6: Remove(); break; // Remove
+                }
+            } while (subNr > 0);
+
+            nr = 99;
+        }
+
+        private void FindAllCategoriesFromDb()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FindIdC()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void FindC()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void AddC()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void EditC()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void RemoveC()
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
 
         #region HELPERS
@@ -259,6 +402,13 @@ namespace ToolMonitorC
                 else { id = temp; }
             } while (id < 0);
             return id;
+        }
+
+        private void WriteLineInRed(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine(str, Console.BackgroundColor);
+            Console.BackgroundColor = ConsoleColor.Black;
         }
 
         #endregion
