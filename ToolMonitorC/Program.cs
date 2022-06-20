@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ToolMonitorC.ConsolMenu;
 using ToolMonitorC.Data;
 using ToolMonitorC.Entities;
 using ToolMonitorC.Repositories;
