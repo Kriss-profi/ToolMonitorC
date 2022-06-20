@@ -1,6 +1,6 @@
-﻿using ToolMonitorC.Entities;
+﻿using ToolMonitorC.Data.Entities;
 
-namespace ToolMonitorC.Repositories
+namespace ToolMonitorC.Data.Repositories
 {
     public interface IRepository<T> : IReadRepository<T>, IWriteRepository<T> where T : class, IEntity
     {

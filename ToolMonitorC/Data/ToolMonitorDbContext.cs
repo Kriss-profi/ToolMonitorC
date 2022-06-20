@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ToolMonitorC.Entities;
+using ToolMonitorC.Data.Entities;
 
 namespace ToolMonitorC.Data
 {
@@ -9,10 +9,14 @@ namespace ToolMonitorC.Data
         {
         }
 
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Dealer> Dealers { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
         public DbSet<Tool> Tools { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Category> Categories { get; set; }
+
 
 
 

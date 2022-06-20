@@ -1,6 +1,6 @@
 ﻿using ToolMonitorC.Data;
-using ToolMonitorC.Entities;
-using ToolMonitorC.Repositories;
+using ToolMonitorC.Data.Entities;
+using ToolMonitorC.Data.Repositories;
 using ToolMonitorC.ConsolMenu;
 
 namespace ToolMonitorC.UI

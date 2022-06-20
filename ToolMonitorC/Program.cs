@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ToolMonitorC.Data;
-using ToolMonitorC.Entities;
-using ToolMonitorC.Repositories;
+using ToolMonitorC.Data.Entities;
+using ToolMonitorC.Data.Repositories;
 using ToolMonitorC.UI;
 
 var services = new ServiceCollection();

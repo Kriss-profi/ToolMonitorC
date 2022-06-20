@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ToolMonitorC.Repositories.Extensions
+namespace ToolMonitorC.Data.Repositories.Extensions
 {
     public class FileRepository
     {

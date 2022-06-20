@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ToolMonitorC.Entities;
+using ToolMonitorC.Data.Entities;
 using System.Collections.Generic;
 
-namespace ToolMonitorC.Repositories
+namespace ToolMonitorC.Data.Repositories
 {
     //public delegate void ItemAdded<in T>(T item);
     public class SqlRepository<T> : IRepository<T> where T : class, IEntity, new() 

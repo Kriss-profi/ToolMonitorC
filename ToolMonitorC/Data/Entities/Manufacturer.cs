@@ -1,9 +1,6 @@
-﻿using ToolMonitorC.Entities;
+﻿namespace ToolMonitorC.Data.Entities;
 
-namespace ToolMonitorC.Data.Entities
+public class Manufacturer : EntityBase
 {
-    public class Manufacturer : EntityBase
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }
