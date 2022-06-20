@@ -177,11 +177,16 @@ namespace ToolMonitorC.UI
 
         private void AddEmployee()
         {
+            var name = "";
             nr = 10;
             menu.SubHeading(nr);
             Employee employee = new Employee();
             Console.Write("Podaj imię: ");
-            employee.FirstName = Console.ReadLine();
+            name = Console.ReadLine();
+            if (String.IsNullOrEmpty(name))
+            {
+                employee.FirstName = name;
+            }
             toolMonitorDbContext.Add(employee);
             toolMonitorDbContext.SaveChanges();
             subNr = 0;
