@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ToolMonitorC;
 using ToolMonitorC.ConsolMenu;
 using ToolMonitorC.Data;
 using ToolMonitorC.Entities;
 using ToolMonitorC.Repositories;
+using ToolMonitorC.UI;
 
 var services = new ServiceCollection();
 services.AddSingleton<IApp, App>();
