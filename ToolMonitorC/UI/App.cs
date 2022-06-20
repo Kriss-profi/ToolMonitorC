@@ -3,7 +3,7 @@ using ToolMonitorC.Entities;
 using ToolMonitorC.Repositories;
 using ToolMonitorC.ConsolMenu;
 
-namespace ToolMonitorC
+namespace ToolMonitorC.UI
 {
     public class App : IApp
     {
@@ -27,10 +27,10 @@ namespace ToolMonitorC
         {
             do
             {
-                if(nr == 99)
+                if (nr == 99)
                 {
                     menu.MainMenu();
-                    nr = GetNumber()*10;
+                    nr = GetNumber() * 10;
                 }
                 switch (nr)
                 {
@@ -38,11 +38,11 @@ namespace ToolMonitorC
                         {
                             menu.EndMenu();
                             var key = Console.ReadKey();
-                            nr = (key.Key == ConsoleKey.T) ? -1 : 99;
+                            nr = key.Key == ConsoleKey.T ? -1 : 99;
                             break;
                         }
                     case 10: StartEmployee(); break;
-                    
+
                     case 20: StartDepartments(); break;
 
                     case 30: menu.SubMenu(nr); nr += GetNumber(); break;
@@ -73,10 +73,11 @@ namespace ToolMonitorC
         private void StartEmployee()
         {
             menu.SubMenu(nr); subNr = GetNumber();
-            do {
+            do
+            {
                 switch (subNr)
                 {
-                    case 0: subNr = -1;  break;
+                    case 0: subNr = -1; break;
                     case 1: FindAllEmployeesFromDb(); break; // schow all
                     case 2: FindEmployeeId(); break; // schow Id
                     case 3: FindEmployee(); break;
@@ -107,7 +108,7 @@ namespace ToolMonitorC
             id = GetId();
             employee = toolMonitorDbContext.Employees.FirstOrDefault(x => x.Id == id)!;
             menu.SubMenu2(nr);
-            if(employee != null)
+            if (employee != null)
             {
                 Console.WriteLine(employee.ToString());
             }
@@ -161,8 +162,8 @@ namespace ToolMonitorC
             WriteLineInRed(str);
             Console.WriteLine("  TAK [t] \t NIE [n]");
             var key = Console.ReadKey();
-            if(key.Key == ConsoleKey.T)
-            {  
+            if (key.Key == ConsoleKey.T)
+            {
                 RemoveEmployeeFromDb(employee);
             }
         }
@@ -367,12 +368,12 @@ namespace ToolMonitorC
         {
             Console.Write("\tWybierz opcję: ");
             bool bn = int.TryParse(Console.ReadLine(), out int n);
-            if(!bn)
+            if (!bn)
             {
                 n = 99;
             }
             //n = int.Parse(Console.ReadLine());
-            return (n);
+            return n;
         }
         static int GetSubNumber()
         {
@@ -382,7 +383,7 @@ namespace ToolMonitorC
             {
                 n = 99;
             }
-            return (n);
+            return n;
         }
 
         private int GetId()
