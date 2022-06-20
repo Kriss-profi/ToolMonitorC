@@ -137,11 +137,16 @@ namespace ToolMonitorC.UI
         }
         private void EditEmployee()
         {
+            string temp = "";
             nr = 10;
             menu.SubMenu1(nr);
             Console.WriteLine(employee.ToString());
             Console.Write("Podaj nowe imię: ");
-            employee.FirstName = Console.ReadLine();
+            temp = Console.ReadLine();
+            if(string.IsNullOrEmpty(temp))
+            {
+                employee.FirstName = temp;
+            }
             toolMonitorDbContext.SaveChanges();
             subNr = GetSubNumber();
         }
@@ -177,6 +182,7 @@ namespace ToolMonitorC.UI
 
         private void AddEmployee()
         {
+
             nr = 10;
             menu.SubHeading(nr);
             Employee employee = new Employee();
