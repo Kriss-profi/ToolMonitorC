@@ -38,7 +38,7 @@ namespace ToolMonitorC.UI
                         {
                             menu.EndMenu();
                             var key = Console.ReadKey();
-                            nr = key.Key == ConsoleKey.T ? -1 : 99;
+                            nr = (key.Key == ConsoleKey.T || key.Key == ConsoleKey.Enter) ? -1 : 99;
                             break;
                         }
                     case 10: StartEmployee(); break;
