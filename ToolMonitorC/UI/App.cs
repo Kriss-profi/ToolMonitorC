@@ -253,7 +253,6 @@ namespace ToolMonitorC.UI
 
         #endregion
 
-
         #region TOOLS
 
         private void StartTools()
@@ -307,7 +306,6 @@ namespace ToolMonitorC.UI
         }
 
         #endregion
-
 
         #region TOOLS
 

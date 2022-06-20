@@ -4,6 +4,8 @@
     {
         public string ToolName { get; set; }
         public string ToolDescription { get; set; }
+        public int ManufacturerId { get; set; }
+        public int BillId { get; set; }
         public DateTime BayData { get; set; }
         public int Varanty { get; set; }
 
