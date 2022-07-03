@@ -12,8 +12,15 @@ namespace ToolMonitorC.UI
         private readonly ToolMonitorDbContext toolMonitorDbContext;
         private readonly Menu menu = new();
         private Employee employee;
-        private int nr = 99;
-        private int subNr = 99;
+        private Tool tool;
+        const int MenuConst = 99;
+        const int MenuEmployee = 10;
+        const int MenuDepartment = 20;
+        const int MenuTools = 30;
+        const int Menu4 = 40;
+        const int Menu5 = 50;
+        private int nrMenu = MenuConst;
+        private int subNr = MenuConst;
         private int id = 0;
 
         public App(IRepository<Employee> employeeRepository, IRepository<Tool> toolRepository, ToolMonitorDbContext toolMonitorDbContext)
@@ -30,15 +37,15 @@ namespace ToolMonitorC.UI
                 if (nr == 99)
                 {
                     menu.MainMenu();
-                    nr = GetNumber() * 10;
+                    nrMenu = GetNumber() * 10;
                 }
-                switch (nr)
+                switch (nrMenu)
                 {
                     case 0:
                         {
                             menu.EndMenu();
                             var key = Console.ReadKey();
-                            nr = (key.Key == ConsoleKey.T || key.Key == ConsoleKey.Enter) ? -1 : 99;
+                            nr = (key.Key == ConsoleKey.T || key.Key == ConsoleKey.Enter) ? -1 : MenuConst;
                             break;
                         }
                     case 10: StartEmployee(); break;
@@ -46,25 +53,13 @@ namespace ToolMonitorC.UI
                     case 20: StartDepartments(); break;
 
                     case 30: menu.SubMenu(nr); nr += GetNumber(); break;
-                    case 31: break; // schow all
-                    case 32: break; // schow Id
-                    case 33: Find(); break;
-                    case 34: break; // Add
-                    case 35: Edit(); break; // Edit
-                    case 36: Remove(); break; // Remove
 
                     case 40: menu.SubMenu(nr); nr += GetNumber(); break;
-                    case 41: break; // schow all
-                    case 42: break; // schow Id
-                    case 43: Find(); break;
-                    case 44: break; // Add
-                    case 45: Edit(); break; // Edit
-                    case 46: Remove(); break; // Remove
 
-                    default: nr = 99; break;
+                    default: nr = MenuConst; break;
                 }
-                Console.WriteLine($"nr : {nr}");
-            } while (nr > 0);
+                Console.WriteLine($"nr : {nrMenu}");
+            } while (nrMenu > 0);
         }
 
 
@@ -72,9 +67,11 @@ namespace ToolMonitorC.UI
 
         private void StartEmployee()
         {
+            
             menu.SubMenu(nr); subNr = GetNumber();
             do
             {
+                nrMenu = MenuEmployee;
                 switch (subNr)
                 {
                     case 0: subNr = -1; break;
@@ -87,14 +84,13 @@ namespace ToolMonitorC.UI
                 }
             } while (subNr > 0);
 
-            nr = 99;
+            nrMenu = MenuConst;
         }
         private void FindAllEmployeesFromDb()
         {
-            nr = 10;
-            menu.SubMenu1(nr);
-            var EmployeeFromDb = toolMonitorDbContext.Employees.ToList();
-            foreach (var employee in EmployeeFromDb)
+            menu.SubMenu1(nrMenu);
+            var allEmployees = toolMonitorDbContext.Employees.ToList();
+            foreach (var employee in allEmployees)
             {
                 Console.WriteLine(employee);
             }
@@ -103,25 +99,23 @@ namespace ToolMonitorC.UI
 
         private void FindEmployeeId()
         {
-            nr = 10;
             Console.Write("Podaj ID pracownika: ");
             id = GetId();
             employee = toolMonitorDbContext.Employees.FirstOrDefault(x => x.Id == id)!;
-            menu.SubMenu2(nr);
-            if (employee != null)
+            menu.SubMenu2(nrMenu);
+            if (employee == null)
             {
-                Console.WriteLine(employee.ToString());
+                Console.WriteLine("No such employee was found");
             }
             else
             {
-                Console.WriteLine("No such employee was found");
+                Console.WriteLine(employee.ToString());
             }
             subNr = GetSubNumber();
         }
         private void FindEmployee()
         {
-            nr = 10;
-            menu.SubMenu1(nr);
+            menu.SubMenu1(nrMenu);
             Console.WriteLine("Szykamy pracownika");
 
             subNr = GetSubNumber();
@@ -129,8 +123,7 @@ namespace ToolMonitorC.UI
 
         private void FindEmployeeName()
         {
-            //nr = 10;
-            menu.SubMenu1(nr);
+            menu.SubMenu1(nrMenu);
             Console.WriteLine("Szykamy . . . ");
 
             subNr = GetSubNumber();
@@ -138,8 +131,7 @@ namespace ToolMonitorC.UI
         private void EditEmployee()
         {
             string temp = "";
-            nr = 10;
-            menu.SubMenu1(nr);
+            menu.SubMenu1(nrMenu);
             Console.WriteLine(employee.ToString());
             Console.Write("Podaj nowe imię: ");
             temp = Console.ReadLine();
@@ -153,16 +145,14 @@ namespace ToolMonitorC.UI
 
         private void RemoveEmployee()
         {
-            nr = 10;
-            menu.SubMenu1(nr);
+            menu.SubMenu1(nrMenu);
             Console.WriteLine("Usówanko");
             RemoveEmployee(id);
             subNr = 0;
         }
         private void RemoveEmployee(int id)
         {
-            nr = 10;
-            menu.SubHeading(nr);
+            menu.SubHeading(nrMenu);
             string str = $"Do you want to delete it : \n{employee.ToString()}";
             WriteLineInRed(str);
             Console.WriteLine("  TAK [t] \t NIE [n]");
@@ -183,11 +173,16 @@ namespace ToolMonitorC.UI
         private void AddEmployee()
         {
 
-            nr = 10;
-            menu.SubHeading(nr);
+            menu.SubHeading(nrMenu);
             Employee employee = new Employee();
             Console.Write("Podaj imię: ");
             employee.FirstName = Console.ReadLine();
+            Console.Write("Podaj Nazwisko: ");
+            employee.LastName = Console.ReadLine();
+            AllDepartmentsFromDb(); 
+            Console.Write("Wybierz Id Departamentu: ");#
+            int departmentId = GetId();
+            employee.DepartmentId = departmentId;
             toolMonitorDbContext.Add(employee);
             toolMonitorDbContext.SaveChanges();
             subNr = 0;
@@ -195,7 +190,7 @@ namespace ToolMonitorC.UI
 
 
 
-        private void ReadAllToolsFromSql()
+        private void ReadAllToolsFromDb()
         {
             var ToolsFromDb = toolMonitorDbContext.Tools.ToList();
             foreach (var tool in ToolsFromDb)
@@ -212,6 +207,7 @@ namespace ToolMonitorC.UI
             menu.SubMenu(nr); subNr = GetNumber();
             do
             {
+                nrMenu = MenuDepartment;
                 switch (subNr)
                 {
                     case 0: nr = -1; break;
@@ -224,16 +220,29 @@ namespace ToolMonitorC.UI
                 }
             } while (subNr > 0);
 
-            nr = 99;
+            nrMenu = MenuConst;
         }
 
         private void FindAllDepartmentsFromDb()
         {
-            Console.WriteLine("Jeszcze nie ma tabelki");
+            menu.SubMenu(nrMenu);
+            AllDepartmentsFromDb();
+            subNr = GetNumber();
+
+        }
+
+        private void AllDepartmentsFromDb()
+        {
+            var allDepartments = toolMonitorDbContext.Departments.ToList();
+            foreach(var department in allDepartments)
+            {
+                Console.WriteLine(department);
+            }
         }
 
         private void FindDepartmentId()
         {
+            Console.WriteLine("Jeszcze nie ma tabelki");
             throw new NotImplementedException();
         }
 
@@ -266,10 +275,11 @@ namespace ToolMonitorC.UI
             menu.SubMenu(nr); subNr = GetNumber();
             do
             {
+                nrMenu = MenuTools;
                 switch (subNr)
                 {
                     case 0: nr = -1; break;
-                    case 1: FindAllToolFromDb(); break; // schow all
+                    case 1: FindAllToolsFromDb(); break; // schow all
                     case 2: FindId(); break; // schow Id
                     case 3: Find(); break;
                     case 4: Add(); break; // Add
@@ -281,14 +291,36 @@ namespace ToolMonitorC.UI
             nr = 99;
         }
 
-        private void FindAllToolFromDb()
+        private void FindAllToolsFromDb()
         {
-            throw new NotImplementedException();
+            menu.SubMenu(nrMenu);
+            AllToolsFromDb();
+            subNr = GetNumber();
         }
 
-        private void FindId()
+        private void AllToolsFromDb()
         {
-            throw new NotImplementedException();
+            var AllToolsFromDb = toolMonitorDbContext.Tools.ToList();
+            foreach(var toolFromDb in AllToolsFromDb)
+            {
+                Console.WriteLine(toolFromDb);
+            }
+        }
+
+        private void FindIdTool()
+        {
+            Console.Write("Podaj ID Narzedzia: ");
+            id = GetId();
+            tool = toolMonitorDbContext.Tools.FirstOrDefault(x => x.Id = id)!;
+            menu.SubMenu2(nrMenu);
+            if (tool == null)
+            {
+                Console.WriteLine("No such Tool was found");
+            }
+            else
+            {
+                Console.WriteLine(tool.ToString());
+            }
         }
 
         private void Find()
@@ -313,7 +345,7 @@ namespace ToolMonitorC.UI
 
         #endregion
 
-        #region TOOLS
+        #region CATEGORIES
 
         private void StartCategories()
         {
@@ -340,27 +372,27 @@ namespace ToolMonitorC.UI
             throw new NotImplementedException();
         }
 
-        private void FindIdC()
+        private void FindIdCategories()
         {
             throw new NotImplementedException();
         }
 
-        private void FindC()
+        private void FindCategories()
         {
             throw new NotImplementedException();
         }
 
-        private void AddC()
+        private void AddCategories()
         {
             throw new NotImplementedException();
         }
 
-        private void EditC()
+        private void EditCcategories()
         {
             throw new NotImplementedException();
         }
 
-        private void RemoveC()
+        private void RemoveCcategories(int id)
         {
             throw new NotImplementedException();
         }
@@ -396,7 +428,7 @@ namespace ToolMonitorC.UI
             do
             {
                 bool result = int.TryParse(Console.ReadLine(), out int temp);
-                if (!result) { Console.WriteLine("Podaj właściwą liczbę: "); }
+                if (!result) { Console.Write("Podaj właściwą liczbę: "); }
                 else { id = temp; }
             } while (id < 0);
             return id;
