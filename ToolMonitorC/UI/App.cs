@@ -48,13 +48,15 @@ namespace ToolMonitorC.UI
                             nrMenu = (key.Key == ConsoleKey.T || key.Key == ConsoleKey.Enter) ? -1 : MenuConst;
                             break;
                         }
-                    case 10: StartEmployee(); break;
+                    case 10: StartTools(); break;
 
-                    case 20: StartDepartments(); break;
+                    case 20: StartEmployee(); break;
 
-                    case 30: menu.SubMenu(nrMenu); nrMenu += GetNumber(); break;
+                    case 30: StartDepartments(); break;
 
-                    case 40: menu.SubMenu(nrMenu); nrMenu += GetNumber(); break;
+                    case 40: StartCategories(); break;
+
+                    case 50: menu.SubMenu(nrMenu); nrMenu += GetNumber(); break;
 
                     default: nrMenu = MenuConst; break;
                 }
@@ -62,6 +64,83 @@ namespace ToolMonitorC.UI
             } while (nrMenu > 0);
         }
 
+
+        #region TOOLS
+
+        private void StartTools()
+        {
+            menu.SubMenu(nrMenu); subNr = GetNumber();
+            do
+            {
+                nrMenu = MenuTools;
+                switch (subNr)
+                {
+                    case 0: nrMenu = -1; break;
+                    case 1: FindAllToolsFromDb(); break; // schow all
+                    case 2: Find(); break; // schow Id
+                    case 3: Find(); break;
+                    case 4: Add(); break; // Add
+                    case 5: Edit(); break; // Edit
+                    case 6: Remove(); break; // Remove
+                }
+            } while (subNr > 0);
+
+            nrMenu = 99;
+        }
+
+        private void FindAllToolsFromDb()
+        {
+            menu.SubMenu(nrMenu);
+            AllToolsFromDb();
+            subNr = GetNumber();
+        }
+
+        private void AllToolsFromDb()
+        {
+            var AllToolsFromDb = toolMonitorDbContext.Tools.ToList();
+            foreach (var toolFromDb in AllToolsFromDb)
+            {
+                Console.WriteLine(toolFromDb);
+            }
+        }
+
+        private void FindIdTool()
+        {
+            Console.Write("Podaj ID Narzedzia: ");
+            id = GetId();
+            tool = toolMonitorDbContext.Tools.FirstOrDefault(x => x.Id == id)!;
+            menu.SubMenu2(nrMenu);
+            if (tool == null)
+            {
+                Console.WriteLine("No such Tool was found");
+            }
+            else
+            {
+                Console.WriteLine(tool.ToString());
+            }
+        }
+
+        private void Find()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Add()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Edit()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Remove()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
 
         #region EMPLOYEE
 
@@ -135,7 +214,9 @@ namespace ToolMonitorC.UI
             Console.WriteLine(employee.ToString());
             Console.Write("Podaj nowe imię: ");
             temp = Console.ReadLine();
-            if(string.IsNullOrEmpty(temp))
+            Console.WriteLine(string.IsNullOrEmpty(temp));
+            Console.ReadKey();
+            if(!string.IsNullOrEmpty(temp))
             {
                 employee.FirstName = temp;
             }
@@ -267,83 +348,6 @@ namespace ToolMonitorC.UI
         }
 
         private void RemoveDepartment()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region TOOLS
-
-        private void StartTools()
-        {
-            menu.SubMenu(nrMenu); subNr = GetNumber();
-            do
-            {
-                nrMenu = MenuTools;
-                switch (subNr)
-                {
-                    case 0: nrMenu = -1; break;
-                    case 1: FindAllToolsFromDb(); break; // schow all
-                    case 2: Find(); break; // schow Id
-                    case 3: Find(); break;
-                    case 4: Add(); break; // Add
-                    case 5: Edit(); break; // Edit
-                    case 6: Remove(); break; // Remove
-                }
-            } while (subNr > 0);
-
-            nrMenu = 99;
-        }
-
-        private void FindAllToolsFromDb()
-        {
-            menu.SubMenu(nrMenu);
-            AllToolsFromDb();
-            subNr = GetNumber();
-        }
-
-        private void AllToolsFromDb()
-        {
-            var AllToolsFromDb = toolMonitorDbContext.Tools.ToList();
-            foreach(var toolFromDb in AllToolsFromDb)
-            {
-                Console.WriteLine(toolFromDb);
-            }
-        }
-
-        private void FindIdTool()
-        {
-            Console.Write("Podaj ID Narzedzia: ");
-            id = GetId();
-            tool = toolMonitorDbContext.Tools.FirstOrDefault(x => x.Id == id)!;
-            menu.SubMenu2(nrMenu);
-            if (tool == null)
-            {
-                Console.WriteLine("No such Tool was found");
-            }
-            else
-            {
-                Console.WriteLine(tool.ToString());
-            }
-        }
-
-        private void Find()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Add()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Edit()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void Remove()
         {
             throw new NotImplementedException();
         }

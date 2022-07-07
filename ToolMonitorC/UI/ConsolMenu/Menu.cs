@@ -6,9 +6,9 @@
         public void MainMenu()
         {
             Heading();
-            Console.WriteLine("\t1. Employees.");
-            Console.WriteLine("\t2. Departments.");
-            Console.WriteLine("\t3. Tools.");
+            Console.WriteLine("\t1. Tools.");
+            Console.WriteLine("\t2. Employees.");
+            Console.WriteLine("\t3. Departments.");
             Console.WriteLine("\t4. Categories.");
             End();
         }
@@ -70,15 +70,15 @@
             switch(subTitel)
             {
                 case 10:
-                    Console.WriteLine("********      PRACOWNICY        ***********");
+                    Console.WriteLine("********      NARZĘDZIA         ***********");
                     Console.WriteLine("*******************************************");
                     break;
                 case 20:
-                    Console.WriteLine("********        DZIAŁY          ***********");
+                    Console.WriteLine("********      PRACOWNICY        ***********");
                     Console.WriteLine("*******************************************");
                     break;
                 case 30:
-                    Console.WriteLine("********      NARZĘDZIA         ***********");
+                    Console.WriteLine("********        DZIAŁY          ***********");
                     Console.WriteLine("*******************************************");
                     break;
                 case 40:
