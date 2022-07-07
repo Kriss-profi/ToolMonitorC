@@ -14,11 +14,11 @@ namespace ToolMonitorC.UI
         private Employee employee;
         private Tool tool;
         const int MenuConst = 99;
-        const int MenuEmployee = 10;
-        const int MenuDepartment = 20;
-        const int MenuTools = 30;
-        const int Menu4 = 40;
-        const int Menu5 = 50;
+        const int MenuTools = 10;
+        const int MenuEmployee = 20;
+        const int MenuDepartment = 30;
+        const int MenuManufacturer = 40;
+        const int MenuDealer = 50;
         private int nrMenu = MenuConst;
         private int subNr = MenuConst;
         private int id = 0;
