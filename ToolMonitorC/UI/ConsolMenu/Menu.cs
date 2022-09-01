@@ -10,6 +10,9 @@
             Console.WriteLine("\t2. Employees.");
             Console.WriteLine("\t3. Departments.");
             Console.WriteLine("\t4. Categories.");
+            Console.WriteLine("\t5. Manufactures.");
+            Console.WriteLine("\t6. Dealers.");
+
             End();
         }
 
@@ -82,7 +85,15 @@
                     Console.WriteLine("*******************************************");
                     break;
                 case 40:
-                    Console.WriteLine("********      KATEGORIE         ***********");
+                    Console.WriteLine("********       KATEGORIE        ***********");
+                    Console.WriteLine("*******************************************");
+                    break;
+                case 50:
+                    Console.WriteLine("********      MANUFACTURE       ***********");
+                    Console.WriteLine("*******************************************");
+                    break;
+                case 60:
+                    Console.WriteLine("********        DEALER          ***********");
                     Console.WriteLine("*******************************************");
                     break;
             }
