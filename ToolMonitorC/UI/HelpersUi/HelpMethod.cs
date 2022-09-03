@@ -10,26 +10,38 @@ namespace ToolMonitorC.UI.HelpersUi
     {
 
         #region HELPERS
-        public int GetNumber()
+        public int GetNumber(int success)
         {
-            Console.Write("\tWybierz opcję: ");
-            bool bn = int.TryParse(Console.ReadLine(), out int n);
-            if (!bn)
+            if (success != 0 && success != 0)
             {
-                n = 99;
+                Console.Write("\tWybierz opcję: ");
+                bool bn = int.TryParse(Console.ReadLine(), out int n);
+                if (!bn)
+                {
+                    n = 99;
+                }
+                //n = int.Parse(Console.ReadLine());
+                return n;
+            }else
+            {
+                return success;
             }
-            //n = int.Parse(Console.ReadLine());
-            return n;
         }
-        public int GetSubNumber()
+        public int GetIdNew()
         {
-            Console.Write("\tWybierz opcję: ");
-            bool bn = int.TryParse(Console.ReadLine(), out int n);
-            if (!bn)
+            int id = -1;
+            do
             {
-                n = 99;
-            }
-            return n;
+                var readLineResult = Console.ReadLine();
+                if (readLineResult == null) { return -1; }
+                else
+                {
+                    bool result = int.TryParse(readLineResult, out int temp);
+                    if (!result) { Console.Write("Podaj właściwą liczbę: "); }
+                    else { id = temp; }
+                }
+            } while (id < 0);
+            return id;
         }
 
         public int GetId()
@@ -43,10 +55,27 @@ namespace ToolMonitorC.UI.HelpersUi
             } while (id < 0);
             return id;
         }
-
         public void WriteLineInRed(string str)
         {
             Console.BackgroundColor = ConsoleColor.Red;
+            Console.WriteLine(str, Console.BackgroundColor);
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        public void WriteInRed(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.Write(str, Console.BackgroundColor);
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        public void WriteLineInGreen(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.WriteLine(str, Console.BackgroundColor);
+            Console.BackgroundColor = ConsoleColor.Black;
+        }
+        public void WriteInGreen(string str)
+        {
+            Console.BackgroundColor = ConsoleColor.Green;
             Console.WriteLine(str, Console.BackgroundColor);
             Console.BackgroundColor = ConsoleColor.Black;
         }
@@ -88,6 +117,14 @@ namespace ToolMonitorC.UI.HelpersUi
 
         }
 
+        //public static void ForeachThis<T>(this IEnumerable<T> t)
+        //{
+        //    Console.WriteLine("Uwaga drukuję");
+        //    foreach (var item in t)
+        //    {
+        //        Console.WriteLine(item);
+        //    }
+        //}
 
         #endregion
     }

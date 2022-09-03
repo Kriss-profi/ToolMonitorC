@@ -8,8 +8,7 @@ namespace ToolMonitorC.UI.HelpersUi
 {
     public interface IHelpMethod
     {
-        public int GetNumber();
-        public int GetSubNumber();
+        public int GetNumber(int subNr);
         public int GetId();
         public void WriteLineInRed(string str);
         public string ReadString();
