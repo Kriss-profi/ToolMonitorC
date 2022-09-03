@@ -1,0 +1,15 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using ToolMonitorC.ConsolMenu;
+global using ToolMonitorC.Data;
+global using ToolMonitorC.Data.Entities;
+global using ToolMonitorC.Data.Repositories;
+global using ToolMonitorC.UI;
+global using ToolMonitorC.UI.HelpersUi;
+global using ToolMonitorC.UI.EmployeeUi;
+global using ToolMonitorC.UI.ToolUi;
+global using ToolMonitorC.UI.DepartmentUi;
+global using ToolMonitorC.UI.CategoriesUi;
