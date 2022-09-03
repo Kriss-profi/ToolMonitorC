@@ -6,7 +6,8 @@ public class Tool : EntityBase
     public string ToolDescription { get; set; }
     public int ManufacturerId { get; set; }
     public int DealerId { get; set; }
-    public int BillId { get; set; }
+    public int InvoiiceId { get; set; }
+    public int Category { get; set; }
     public DateTime BayData { get; set; }
     public int Varanty { get; set; }
 
