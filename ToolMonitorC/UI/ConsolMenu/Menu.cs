@@ -3,6 +3,7 @@
     public class Menu : IMenu
     {
 
+        private string linia = " ------------------------------------------------";
         public void MainMenu()
         {
             Heading();
@@ -12,44 +13,66 @@
             Console.WriteLine("\t4. Categories.");
             Console.WriteLine("\t5. Manufactures.");
             Console.WriteLine("\t6. Dealers.");
-
+            Console.WriteLine("\t7. Invoice.");
+            
             End();
         }
 
         public void SubMenu(int subTitel)
         {
             SubHeading(subTitel);
-            Console.WriteLine("Schow All[1]  Schow ID[2]  Serch[3]  Add[4] ");
-            //Console.WriteLine("\t2. Pokaż po ID");
-            //Console.WriteLine("\t3. Szukaj");
-            //Console.WriteLine("\t4. Dodaj");
+            TextGreen(linia);
+            ElementGreen("|");
+            Console.Write($" Schow All[1] ");
+            ElementGreen("|");
+            Console.Write($" Schow ID[2] ");
+            ElementGreen("|");
+            Console.Write($" Serch[3] ");
+            ElementGreen("|");
+            Console.Write($" Add[4] ");
+            ElementGreen("|");
+            Console.WriteLine();
+            TextGreen(linia);
             SubEnd();
         }
         public void SubMenu1(int subTitel)
         {
             SubHeading(subTitel);
-            Console.WriteLine("     Schow ID[2]  Serch[3]  Add[4] ");
-            //Console.WriteLine("\t3. Szukaj");
-            //Console.WriteLine("\t4. Dodaj");
+            TextGreen(linia);
+            ElementGreen("|");
+            Console.Write("   Schow ID[2]  ");
+            ElementGreen("|");
+            Console.Write("    Serch[3]   ");
+            ElementGreen("|");
+            Console.Write("     Add[4]    ");
+            ElementGreen("|");
+            Console.WriteLine();
+            TextGreen(linia);
             SubEnd();
         }
-        public void SubMenu2(int subTitel)
+        public void SubMenuElement(int subTitel)
         {
             SubHeading(subTitel);
-            Console.WriteLine("\tEdytuj[5]   Usuń[6]");
-            //Console.WriteLine("\t5. Usuń");
+            TextGreen(linia);
+            ElementGreen("|");
+            Console.Write("\t Edytuj[5]  ");
+            ElementGreen("\t|");
+            Console.Write("\t Usuń[6] ");
+            ElementGreen("\t |");
+            Console.WriteLine();
+            TextGreen(linia);
             SubEnd();
         }
         public void EndMenu()
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("*****          TOOL MONITOR          ******");
-            Console.WriteLine("*****         Chcesz opuścić         ******");
-            Console.WriteLine("*****            Program?            ******");
-            Console.WriteLine("*****       TAK(t)       NIE(n)      ******");
-            Console.WriteLine("*******************************************");
+            Console.WriteLine("**************************************************");
+            Console.WriteLine("*****              TOOL MONITOR             ******");
+            Console.WriteLine("*****             Chcesz opuścić            ******");
+            Console.WriteLine("*****                Program?               ******");
+            Console.WriteLine("*****           TAK(t)       NIE(n)         ******");
+            Console.WriteLine("**************************************************");
             Console.WriteLine();
         }
 
@@ -57,9 +80,9 @@
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("********     TOOL MONITOR MENU     ********");
-            Console.WriteLine("*******************************************");
+            Console.WriteLine("**************************************************");
+            Console.WriteLine("********         TOOL MONITOR MENU        ********");
+            Console.WriteLine("**************************************************");
             Console.WriteLine();
         }
 
@@ -67,49 +90,70 @@
         {
             Console.Clear();
             Console.WriteLine();
-            Console.WriteLine("*******************************************");
-            Console.WriteLine("********     TOOL MONITOR MENU     ********");
-            Console.WriteLine("*******************************************");
+            Console.WriteLine("**************************************************");
+            Console.WriteLine("********         TOOL MONITOR MENU        ********");
+            Console.WriteLine("**************************************************");
             switch(subTitel)
             {
                 case 10:
-                    Console.WriteLine("********      NARZĘDZIA         ***********");
-                    Console.WriteLine("*******************************************");
+                    Console.WriteLine("********           NARZĘDZIA           ***********");
+                    Console.WriteLine("**************************************************");
                     break;
                 case 20:
-                    Console.WriteLine("********      PRACOWNICY        ***********");
-                    Console.WriteLine("*******************************************");
+                    Console.WriteLine("********           PRACOWNICY          ***********");
+                    Console.WriteLine("**************************************************");
                     break;
                 case 30:
-                    Console.WriteLine("********        DZIAŁY          ***********");
-                    Console.WriteLine("*******************************************");
+                    Console.WriteLine("********             DZIAŁY            ***********");
+                    Console.WriteLine("**************************************************");
                     break;
                 case 40:
-                    Console.WriteLine("********       KATEGORIE        ***********");
-                    Console.WriteLine("*******************************************");
+                    Console.WriteLine("********            KATEGORIE          ***********");
+                    Console.WriteLine("**************************************************");
                     break;
                 case 50:
-                    Console.WriteLine("********      MANUFACTURE       ***********");
-                    Console.WriteLine("*******************************************");
+                    Console.WriteLine("********            PRODUCENT          ***********");
+                    Console.WriteLine("**************************************************");
                     break;
                 case 60:
-                    Console.WriteLine("********        DEALER          ***********");
-                    Console.WriteLine("*******************************************");
+                    Console.WriteLine("********           SPRZEDAWCA          ***********");
+                    Console.WriteLine("**************************************************");
+                    break;
+                case 70:
+                    Console.WriteLine("********            RACHUNKI           ***********");
+                    Console.WriteLine("**************************************************");
                     break;
             }
+            //Console.WriteLine();
+        }
+        private void End()
+        {
+            TextGreen(linia);
+            ElementGreen("|");
+            Console.Write("\t         Zakończ program [0]             ");
+            ElementGreen("|");
             Console.WriteLine();
+            TextGreen(linia);
         }
-        private static void End()
+        private void SubEnd()
         {
-            Console.WriteLine("\t -   -   -   -   -   -   -");
-            Console.WriteLine("\t Zakończ program [0] ");
-            Console.WriteLine("\t -   -   -   -   -   -   -");
+            ElementGreen("|");
+            Console.Write("\t     Powrót do menu głównego [0]         ");
+            ElementGreen("|");
+            Console.WriteLine();
+            TextGreen(linia);
         }
-        private static void SubEnd()
+        private void TextGreen(string text)
         {
-            Console.WriteLine("\t -   -   -   -   -   -   -");
-            Console.WriteLine("\tPowrót do menu głównego [0]");
-            Console.WriteLine("\t -   -   -   -   -   -   -");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(text);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+        private void ElementGreen(string text)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(text);
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
